@@ -40,21 +40,29 @@ def precision_score(y_true, y_pred):
     """Precision = TP / (TP + FP)"""
     tp, fp, _, _ = _binary_counts(y_true, y_pred)
     # =============== TODO (students) ===============
-
+    # 精确率 = TP / (TP + FP)
+    if tp + fp == 0:
+        return 0.0  # 避免除零错误
+    return tp / (tp + fp)
     # ===============================================
-    raise NotImplementedError("Implement precision_score")
 
 def recall_score(y_true, y_pred):
     """Recall = TP / (TP + FN)"""
     tp, _, fn, _ = _binary_counts(y_true, y_pred)
     # =============== TODO (students) ===============
-
+    # 召回率 = TP / (TP + FN)
+    if tp + fn == 0:
+        return 0.0  # 避免除零错误
+    return tp / (tp + fn)
     # ===============================================
-    raise NotImplementedError("Implement recall_score")
 
 def f1_score(y_true, y_pred):
     """F1 = 2 * (P * R) / (P + R)"""
     # =============== TODO (students) ===============
-
+    # F1分数 = 2 * (精确率 * 召回率) / (精确率 + 召回率)
+    precision = precision_score(y_true, y_pred)
+    recall = recall_score(y_true, y_pred)
+    if precision + recall == 0:
+        return 0.0  # 避免除零错误
+    return 2 * (precision * recall) / (precision + recall)
     # ===============================================
-    raise NotImplementedError("Implement f1_score")
