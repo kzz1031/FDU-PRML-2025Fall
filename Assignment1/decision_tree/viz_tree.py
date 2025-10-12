@@ -12,7 +12,8 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 import matplotlib.pyplot as plt
 
 try:  # Chinese font support (ignore if missing)
-	plt.rcParams['font.sans-serif'] = ['SimHei']
+	plt.rcParams['font.sans-serif'] = ['Arial', 'DejaVu Sans', 'Liberation Sans', 'SimHei']
+	plt.rcParams['axes.unicode_minus'] = False  
 except Exception:  # pragma: no cover
 	pass
 

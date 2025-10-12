@@ -27,12 +27,24 @@ def test_dt_classification():
 	y_test = df_test['label'].to_numpy(dtype=int)
 
 	criteria = ["info_gain", "info_gain_ratio", "gini", "error_rate"]
+	# criteria = ["info_gain"]
+	max_depths = [4, 5, 6, 7]
+	min_samples_splits = [2, 3, 4, 5]
+	min_impurity_splits = [0.0, 1e-4, 1e-3, 1e-2]
 	# Expect relatively high accuracy on iris (simple dataset). Threshold conservative.
 	min_acc = 0.85
-
+	# for max_depth in max_depths:
+	# 	for min_samples_split in min_samples_splits:
+	# 		for min_impurity_split in min_impurity_splits:
+	# 			print(f"\n=== Criterion: info_gain, max_depth: {max_depth}, min_samples_split: {min_samples_split}, min_impurity_split: {min_impurity_split} ===")
+	# 			dt_clf = DecisionTreeClassifier(criterion="info_gain", random_state=0, max_depth=max_depth, min_samples_split=min_samples_split, min_impurity_split=min_impurity_split, max_features=2)
+	# 			dt_clf.fit(X, y)
+	# 			preds = dt_clf.predict(X_test)
+	# 			acc = (preds == y_test).mean()
+	# 			print(f"Accuracy: {acc:.4f}")
 	for crit in criteria:
 		print(f"\n=== Criterion: {crit} ===")
-		dt_clf = DecisionTreeClassifier(criterion=crit, random_state=0)
+		dt_clf = DecisionTreeClassifier(criterion=crit, random_state=0, max_depth=7, min_samples_split=2, min_impurity_split=0.1, max_features=None)
 		dt_clf.fit(X, y)
 		preds = dt_clf.predict(X_test)
 		acc = (preds == y_test).mean()
